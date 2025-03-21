@@ -142,9 +142,30 @@ void task_b_update(void *parameters)
 
 	#if (TEST_X == TEST_2)
 
-	/* Here Chatbot Artificial Intelligence generated code */
+#include <stdint.h>
+#include <stdbool.h>
+// #include "HAL.h"  // Asegúrate de incluir HAL para HAL_GetTick()
 
-	#endif
+// Definimos una variable para almacenar el tiempo previo
+static uint32_t last_time = 0;
+
+// Definimos un valor de espera
+#define TIMEOUT_MS 1000  // 1 segundo
+
+// **MODO BLOQUEANTE**
+LOGGER_LOG("Modo bloqueante iniciado...\r\n");
+uint32_t start_time = HAL_GetTick();  // Obtener el tiempo actual
+while (HAL_GetTick() - start_time < TIMEOUT_MS);  // Espera 1 segundo
+LOGGER_LOG("Modo bloqueante terminado...\r\n");
+
+// **MODO NO BLOQUEANTE**
+LOGGER_LOG("Modo no bloqueante iniciado...\r\n");
+if (HAL_GetTick() - last_time >= TIMEOUT_MS) {
+    last_time = HAL_GetTick();  // Actualizar el tiempo
+    LOGGER_LOG("Se ejecuta la acción en modo no bloqueante\r\n");
+}
+
+#endif
 }
 
 /********************** end of file ******************************************/
